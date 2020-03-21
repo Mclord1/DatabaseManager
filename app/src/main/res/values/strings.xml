@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Database Management</string>
+    <string name="enter_your_first_name">Enter your first name</string>
+    <string name="enter_your_last_name">Enter your last name</string>
+    <string name="enter_your_age">Enter your age</string>
+    <string name="save">Save</string>
+    <string name="select_gender">Select Gender</string>
+    <string name="no_user_available">No User Available</string>
+    <string name="update">Update</string>
+    <string name="no_data_available_yet">No data available yet</string>
+    <string name="textview">TextView</string>
+
+    <string-array name="gender">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>
