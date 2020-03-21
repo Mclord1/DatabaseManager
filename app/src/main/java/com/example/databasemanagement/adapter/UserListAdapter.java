@@ -7,9 +7,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.databasemanagement.R;
+import com.example.databasemanagement.databinding.UserListItemBinding;
 import com.example.databasemanagement.models.User;
 
 import java.util.List;
@@ -28,13 +30,16 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
         private TextView userFullName, userAge, userGender;
         onItemListener mOnItemListener;
+        private UserListItemBinding mUserListItemBinding;
 
 
-        public UserViewHolder(@NonNull View itemView, onItemListener onItemListener) {
-            super(itemView);
-            userFullName = itemView.findViewById(R.id.user_full_name_text);
-            userAge = itemView.findViewById(R.id.user_age);
-            userGender = itemView.findViewById(R.id.user_gender);
+        public UserViewHolder(UserListItemBinding userListItemBinding, onItemListener onItemListener) {
+            super(userListItemBinding.getRoot());
+            this.mUserListItemBinding = userListItemBinding;
+//            userFullName = itemView.findViewById(R.id.user_full_name_text);
+//            userAge = itemView.findViewById(R.id.user_age);
+//            userGender = itemView.findViewById(R.id.user_gender);
+
             this.mOnItemListener = onItemListener;
 
             itemView.setOnClickListener(this);
@@ -57,18 +62,20 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
     @NonNull
     @Override
     public UserListAdapter.UserViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mLayoutInflater.inflate(R.layout.user_list_item, parent, false);
-        return new UserViewHolder(view, mOnItemListener);
+        UserListItemBinding userListItemBinding = DataBindingUtil.inflate(mLayoutInflater, R.layout.user_list_item, parent, false);
+        return new UserViewHolder(userListItemBinding, mOnItemListener);
     }
 
     @Override
     public void onBindViewHolder(@NonNull UserListAdapter.UserViewHolder holder, int position) {
         if (mUserList != null) {
             User currentUser = mUserList.get(position);
+            holder.mUserListItemBinding.setUser(currentUser);
 
-            holder.userFullName.setText(currentUser.getUserFullName());
-            holder.userAge.setText(String.valueOf(currentUser.getAge()));
-            holder.userGender.setText(currentUser.getGender());
+
+//            holder.userFullName.setText(currentUser.getUserFullName());
+//            holder.userAge.setText(String.valueOf(currentUser.getAge()));
+//            holder.userGender.setText(currentUser.getGender());
 
         } else {
             holder.userFullName.setText(R.string.no_user_available);
@@ -100,6 +107,7 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
     public interface onItemListener {
         void onUserClick(int position);
+
         void onLongClick(int position);
     }
 

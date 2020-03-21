@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
@@ -24,8 +25,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.databasemanagement.R;
 import com.example.databasemanagement.data.UserDisplayViewModel;
+import com.example.databasemanagement.databinding.ActivityUserListBinding;
 import com.example.databasemanagement.models.User;
 import com.example.databasemanagement.adapter.UserListAdapter;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -44,10 +47,11 @@ public class UserListActivity extends AppCompatActivity implements UserListAdapt
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_list);
+        ActivityUserListBinding activityUserListBinding = DataBindingUtil.setContentView(this, R.layout.activity_user_list);
         setTitle("View All Users");
 
-        findViewById(R.id.floatingActionButton).setOnClickListener(new View.OnClickListener() {
+        FloatingActionButton fab = activityUserListBinding.floatingActionButton;
+        fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(UserListActivity.this, MainActivity.class);
@@ -55,8 +59,8 @@ public class UserListActivity extends AppCompatActivity implements UserListAdapt
             }
         });
 
-        mEmptyView = findViewById(R.id.emptyView);
-        mRecyclerView = findViewById(R.id.user_recycler_view);
+        mEmptyView = activityUserListBinding.emptyView;
+        mRecyclerView = activityUserListBinding.userRecyclerView;
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setHasFixedSize(true);
 

@@ -1,6 +1,7 @@
 package com.example.databasemanagement.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.databasemanagement.R;
+import com.example.databasemanagement.databinding.ActivityMainBinding;
 
 public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_FIRST_NAME = "com.example.databasemanagement.UI.EXTRA_FIRST_NAME";
@@ -32,16 +34,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        ActivityMainBinding activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_close);
 
-        mSpinner = findViewById(R.id.gender_spinner);
-        mFirstNameText = findViewById(R.id.first_name_field);
-        mLastNameText = findViewById(R.id.last_name_field);
-        mAgeText = findViewById(R.id.age_name_field);
-        Button saveButton = findViewById(R.id.save_button);
+        mSpinner = activityMainBinding.genderSpinner;
+        mFirstNameText = activityMainBinding.firstNameField;
+        mLastNameText = activityMainBinding.lastNameField;
+        mAgeText = activityMainBinding.ageNameField;
+        Button saveButton = activityMainBinding.saveButton;
 
         mAdapter = ArrayAdapter.createFromResource(MainActivity.this, R.array.gender, android.R.layout.simple_spinner_item);
         mAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
