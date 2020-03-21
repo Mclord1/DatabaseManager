@@ -1,4 +1,4 @@
-package com.example.databasemanagement.Adapter;
+package com.example.databasemanagement.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

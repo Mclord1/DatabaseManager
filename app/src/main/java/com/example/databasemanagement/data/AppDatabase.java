@@ -1,4 +1,4 @@
-package com.example.databasemanagement.Data;
+package com.example.databasemanagement.data;
 
 import android.content.Context;
 

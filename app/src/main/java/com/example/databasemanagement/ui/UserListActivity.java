@@ -1,14 +1,9 @@
-package com.example.databasemanagement;
+package com.example.databasemanagement.ui;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,14 +18,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.databasemanagement.Data.UserDisplayViewModel;
+import com.example.databasemanagement.R;
+import com.example.databasemanagement.data.UserDisplayViewModel;
 import com.example.databasemanagement.models.User;
-import com.example.databasemanagement.Adapter.UserListAdapter;
+import com.example.databasemanagement.adapter.UserListAdapter;
 
 import java.util.List;
 

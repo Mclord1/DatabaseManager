@@ -1,4 +1,4 @@
-package com.example.databasemanagement.Data;
+package com.example.databasemanagement.data;
 
 import android.app.Application;
 import android.os.AsyncTask;

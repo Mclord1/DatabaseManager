@@ -1,12 +1,10 @@
-package com.example.databasemanagement.Data;
+package com.example.databasemanagement.data;
 
 import android.app.Application;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.ViewModel;
 
 import com.example.databasemanagement.models.User;
 
