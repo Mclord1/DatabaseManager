@@ -6,4 +6,6 @@
     <color name="lightGray">#B6B6B6</color>
     <color name="buttonColor">#F6B83D</color>
     <color name="labelColor">#CCC</color>
+    <color name="ashColor">#eaeeee</color>
+    <color name="lightAshColor">#f7f7f7</color>
 </resources>

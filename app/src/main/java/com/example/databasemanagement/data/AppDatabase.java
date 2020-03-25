@@ -6,9 +6,12 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+import com.example.databasemanagement.models.League;
+import com.example.databasemanagement.models.PlayerGroup;
 import com.example.databasemanagement.models.User;
+import com.example.databasemanagement.models.UserGroup;
 
-@Database(entities = {User.class}, version = 1, exportSchema = false)
+@Database(entities = {User.class, League.class, PlayerGroup.class, UserGroup.class}, version = 2, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static final String db_name = "user_db";
@@ -24,4 +27,10 @@ public abstract class AppDatabase extends RoomDatabase {
     }
 
     public abstract UserDao mUserDao();
+
+    public abstract GroupDao mGroupDao();
+
+    public abstract LeagueDao mLeagueDao();
+
+    public abstract UserGroupDao mUserGroupDao();
 }

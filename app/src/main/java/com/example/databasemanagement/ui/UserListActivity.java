@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Canvas;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,6 +26,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.databasemanagement.R;
 import com.example.databasemanagement.data.UserDisplayViewModel;
+import com.example.databasemanagement.data.UserRepository;
 import com.example.databasemanagement.databinding.ActivityUserListBinding;
 import com.example.databasemanagement.models.User;
 import com.example.databasemanagement.adapter.UserListAdapter;
@@ -43,6 +45,7 @@ public class UserListActivity extends AppCompatActivity implements UserListAdapt
     LinearLayout mEmptyView;
     UserListAdapter mUserListAdapter;
     private UserDisplayViewModel mUserDisplayViewModel;
+    UserRepository mUserRepository;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -83,6 +86,7 @@ public class UserListActivity extends AppCompatActivity implements UserListAdapt
                 }
             }
         });
+
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             @Override
@@ -207,32 +211,33 @@ public class UserListActivity extends AppCompatActivity implements UserListAdapt
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.delete_all_notes) {
+        switch (item.getItemId()) {
+            case R.id.delete_all_users:
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setIcon(R.drawable.ic_close);
+                builder.setMessage("Delete all users?");
+                builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        mUserDisplayViewModel.deleteAllUsers();
+                        Toast.makeText(UserListActivity.this, "All users deleted", Toast.LENGTH_LONG).show();
+                    }
+                });
 
-            final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setIcon(R.drawable.ic_close);
-            builder.setMessage("Delete all users?");
-            builder.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    mUserDisplayViewModel.deleteAllUsers();
-                    Toast.makeText(UserListActivity.this, "All users deleted", Toast.LENGTH_LONG).show();
-                }
-            });
-
-            builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
-                    dialogInterface.dismiss();
-                    mUserListAdapter.notifyDataSetChanged();
-                }
-            });
-            builder.create();
-            builder.show();
-
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        mUserListAdapter.notifyDataSetChanged();
+                    }
+                });
+                builder.create();
+                builder.show();
+                break;
+            case R.id.action_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

@@ -36,10 +36,6 @@ public class UserRepository {
         new DeleteAllUsersAsyncTask(mUserDao).execute();
     }
 
-    public void getUser(User user) {
-        new GetUserAsyncTask(mUserDao).execute();
-    }
-
     public LiveData<List<User>> getAllUsers() {
         return allUsers;
     }
@@ -99,19 +95,6 @@ public class UserRepository {
         protected Void doInBackground(User... users) {
             mUserDao.deleteAllUsers();
             return null;
-        }
-    }
-
-    private class GetUserAsyncTask extends AsyncTask<Integer, Void, User> {
-        private UserDao mUserDao;
-
-        private GetUserAsyncTask(UserDao userDao) {
-            this.mUserDao = userDao;
-        }
-
-        @Override
-        protected User doInBackground(Integer... integers) {
-              return mUserDao.getUser(integers[0]);
         }
     }
 

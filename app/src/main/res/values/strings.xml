@@ -9,6 +9,17 @@
     <string name="update">Update</string>
     <string name="no_data_available_yet">No data available yet</string>
     <string name="textview">TextView</string>
+    <string name="all_groups">All Groups</string>
+    <string name="create_group">Create Group</string>
+    <string name="all_leagues">All Leagues</string>
+    <string name="create_league">Create League</string>
+    <string name="enter_league_name">Enter League Name</string>
+    <string name="create_new_league">Create New League</string>
+    <string name="select_group">Select League Group</string>
+    <string name="no_groups_yet_please_create_a_group">No Groups yet, please create a group</string>
+    <string name="no_leagues_yet_please_create_a_league">No Leagues yet, please create a league</string>
+    <string name="create_new_group">Create New Group</string>
+    <string name="enter_group_name">Enter Group Name</string>
 
     <string-array name="gender">
         <item>Male</item>

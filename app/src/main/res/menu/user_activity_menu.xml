@@ -3,8 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/delete_all_notes"
+        android:id="@+id/action_settings"
+        android:title="Settings" />
+    <item
+        android:id="@+id/delete_all_users"
         android:icon="@drawable/ic_close"
-        android:title="Delete all notes"
+        android:title="Delete all users"
         app:showAsAction="never" />
 </menu>

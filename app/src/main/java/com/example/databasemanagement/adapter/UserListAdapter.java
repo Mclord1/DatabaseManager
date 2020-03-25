@@ -28,7 +28,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
 
 
     public static class UserViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
-        private TextView userFullName, userAge, userGender;
         onItemListener mOnItemListener;
         private UserListItemBinding mUserListItemBinding;
 
@@ -36,9 +35,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         public UserViewHolder(UserListItemBinding userListItemBinding, onItemListener onItemListener) {
             super(userListItemBinding.getRoot());
             this.mUserListItemBinding = userListItemBinding;
-//            userFullName = itemView.findViewById(R.id.user_full_name_text);
-//            userAge = itemView.findViewById(R.id.user_age);
-//            userGender = itemView.findViewById(R.id.user_gender);
 
             this.mOnItemListener = onItemListener;
 
@@ -71,14 +67,6 @@ public class UserListAdapter extends RecyclerView.Adapter<UserListAdapter.UserVi
         if (mUserList != null) {
             User currentUser = mUserList.get(position);
             holder.mUserListItemBinding.setUser(currentUser);
-
-
-//            holder.userFullName.setText(currentUser.getUserFullName());
-//            holder.userAge.setText(String.valueOf(currentUser.getAge()));
-//            holder.userGender.setText(currentUser.getGender());
-
-        } else {
-            holder.userFullName.setText(R.string.no_user_available);
         }
     }
 
