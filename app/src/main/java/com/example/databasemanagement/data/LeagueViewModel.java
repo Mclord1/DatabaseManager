@@ -32,6 +32,5 @@ public class LeagueViewModel extends AndroidViewModel {
 
     public int getGroupId(String name) throws InterruptedException {
         return mLeagueRepository.getGroupId(name);
-
     }
 }

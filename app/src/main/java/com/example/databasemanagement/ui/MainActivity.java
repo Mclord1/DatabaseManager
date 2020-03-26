@@ -74,6 +74,11 @@ public class MainActivity extends AppCompatActivity {
                 String age = mAgeText.getText().toString().trim();
                 String genderSpinner = mSpinner.getSelectedItem().toString();
 
+                if (genderSpinner.equals("Select Gender")) {
+                    Toast.makeText(MainActivity.this, "Please select a gender", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 if (firstName.isEmpty() || lastName.isEmpty()) {
                     Toast.makeText(MainActivity.this, "Please enter a value for First Name, Last Name and Age", Toast.LENGTH_LONG).show();
                     return;

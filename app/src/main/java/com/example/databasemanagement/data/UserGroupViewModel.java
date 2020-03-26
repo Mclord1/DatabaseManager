@@ -34,5 +34,9 @@ public class UserGroupViewModel extends AndroidViewModel {
         return mUserGroupRepository.getUserGroups(id);
     }
 
+    public int getUserId(String name) throws InterruptedException {
+        return mUserGroupRepository.getUserId(name);
+    }
+
 
 }

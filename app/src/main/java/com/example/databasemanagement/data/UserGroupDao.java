@@ -26,4 +26,7 @@ public interface UserGroupDao {
     @Update
     void updateUserGroup(UserGroup userGroup);
 
+    @Query("SELECT uId FROM users WHERE first_name = :userFirstName")
+    int getUserId(String userFirstName);
+
 }

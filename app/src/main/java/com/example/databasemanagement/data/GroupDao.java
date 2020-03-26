@@ -19,7 +19,7 @@ public interface GroupDao {
     LiveData<List<PlayerGroup>> LoadAllGroups();
 
     @Insert
-    void insertPlayerGroup(PlayerGroup playerGroup);
+    long insertPlayerGroup(PlayerGroup playerGroup);
 
     @Update
     void updatePlayerGroup(PlayerGroup playerGroup);

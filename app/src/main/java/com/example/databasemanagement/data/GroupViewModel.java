@@ -20,8 +20,8 @@ public class GroupViewModel extends AndroidViewModel {
         allGroups = mGroupRepository.getAllGroups();
     }
 
-    public void insert(PlayerGroup group) {
-        mGroupRepository.insertGroup(group);
+    public int insert(PlayerGroup group) throws InterruptedException {
+        return (int) mGroupRepository.insertGroup(group);
     }
 
     public void update(PlayerGroup group) {
@@ -34,5 +34,9 @@ public class GroupViewModel extends AndroidViewModel {
 
     public LiveData<List<PlayerGroup>> getAllGroups() {
         return allGroups;
+    }
+
+    public int getGroupId(String name) throws InterruptedException {
+        return mGroupRepository.getGroupId(name);
     }
 }

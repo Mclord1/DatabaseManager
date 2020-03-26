@@ -20,8 +20,13 @@
     <string name="no_leagues_yet_please_create_a_league">No Leagues yet, please create a league</string>
     <string name="create_new_group">Create New Group</string>
     <string name="enter_group_name">Enter Group Name</string>
+    <string name="empty_view_image">Empty View Image</string>
+    <string name="add_your_first_user">Add your first User</string>
+    <string name="add_someone_you_know">Add someone you know</string>
+    <string name="create_a_new_user">Create a New User</string>
 
     <string-array name="gender">
+        <item>Select Gender</item>
         <item>Male</item>
         <item>Female</item>
     </string-array>

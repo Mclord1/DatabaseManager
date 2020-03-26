@@ -15,11 +15,10 @@
     </style>
 
     <style name="spinnerStyle" parent="Widget.AppCompat.Spinner">
+        <item name="background">@drawable/edittext_background</item>
         <item name="fontFamily">@font/avenir_medium</item>
         <item name="textAllCaps">false</item>
         <item name="android:textSize">17sp</item>
-        <item name="android:paddingTop">16dp</item>
-        <item name="android:paddingBottom">16dp</item>
     </style>
 
 </resources>
