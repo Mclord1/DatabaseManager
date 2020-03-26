@@ -28,6 +28,6 @@ public interface GroupDao {
     void deletePlayerGroup(PlayerGroup playerGroup);
 
     @Query("SELECT id FROM groups WHERE name = :groupName")
-    int getGroupId(String groupName);
+    LiveData<Integer> getGroupId(String groupName);
 
 }

@@ -23,17 +23,13 @@ public class GroupRepository {
         allGroups = mGroupDao.LoadAllGroups();
     }
 
-    public long insertGroup(final PlayerGroup group) throws InterruptedException {
+    public void insertGroup(final PlayerGroup group) {
         LeagueRepository.databaseWriteExecutor.execute(new Runnable() {
             @Override
             public void run() {
-                groupId2 = mGroupDao.insertPlayerGroup(group);
+                mGroupDao.insertPlayerGroup(group);
             }
         });
-
-        LeagueRepository.databaseWriteExecutor.awaitTermination(2, TimeUnit.SECONDS);
-
-        return groupId2;
     }
 
     public void updateGroup(final PlayerGroup group) {
@@ -58,17 +54,7 @@ public class GroupRepository {
         return allGroups;
     }
 
-    public int getGroupId(final String groupName) throws InterruptedException {
-
-        LeagueRepository.databaseWriteExecutor.execute((new Runnable() {
-            @Override
-            public void run() {
-                groupId = mGroupDao.getGroupId(groupName);
-            }
-        }));
-
-        LeagueRepository.databaseWriteExecutor.awaitTermination(2, TimeUnit.SECONDS);
-
-        return groupId;
+    public LiveData<Integer> getGroupId(final String groupName) {
+        return mGroupDao.getGroupId(groupName);
     }
 }

@@ -2,6 +2,7 @@ package com.example.databasemanagement.data;
 
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
@@ -9,21 +10,19 @@ import com.example.databasemanagement.models.PlayerGroup;
 import com.example.databasemanagement.models.UserGroup;
 
 import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 
 public class UserGroupRepository {
     private UserGroupDao mUserGroupDao;
-    private static final String TAG = "UserGroupRepository";
-    private LeagueDao mLeagueDao;
-    private GroupDao mGroupDao;
     private LiveData<List<UserGroup>> userGroupList;
     private List<PlayerGroup> userGroups;
-    private int userId;
 
     public UserGroupRepository(Application application) {
         AppDatabase appDatabase = AppDatabase.getInstance(application);
-        mGroupDao = appDatabase.mGroupDao();
-        mLeagueDao = appDatabase.mLeagueDao();
         mUserGroupDao = appDatabase.mUserGroupDao();
         userGroupList = mUserGroupDao.getAllUsersAndGroups();
     }
@@ -41,29 +40,12 @@ public class UserGroupRepository {
         });
     }
 
-    public List<PlayerGroup> getUserGroups(final int id) throws InterruptedException {
-        LeagueRepository.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                userGroups = mUserGroupDao.getUserGroups(id);
-            }
-        });
-
-        LeagueRepository.databaseWriteExecutor.awaitTermination(1, TimeUnit.SECONDS);
-
-        return userGroups;
+    public LiveData<List<PlayerGroup>> getUserGroups(final int id) {
+        return mUserGroupDao.getUserGroups(id);
     }
 
-    public int getUserId(final String name) throws InterruptedException {
-        LeagueRepository.databaseWriteExecutor.execute(new Runnable() {
-            @Override
-            public void run() {
-                userId = mUserGroupDao.getUserId(name);
-            }
-        });
-
-        LeagueRepository.databaseWriteExecutor.awaitTermination(1, TimeUnit.SECONDS);
-        return userId;
+    public LiveData<Integer> getUserId(final String name) {
+        return mUserGroupDao.getUserId(name);
     }
 
 }

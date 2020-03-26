@@ -30,13 +30,12 @@ public class UserGroupViewModel extends AndroidViewModel {
         return usersAndGroupsList;
     }
 
-    public List<PlayerGroup> getUserGroups(int id) throws InterruptedException {
+    public LiveData<List<PlayerGroup>> getUserGroups(int id) {
         return mUserGroupRepository.getUserGroups(id);
     }
 
-    public int getUserId(String name) throws InterruptedException {
+    public LiveData<Integer> getUserId(String name) {
         return mUserGroupRepository.getUserId(name);
     }
-
 
 }

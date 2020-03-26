@@ -1,6 +1,7 @@
 package com.example.databasemanagement.ui;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -19,6 +20,7 @@ import com.example.databasemanagement.R;
 import com.example.databasemanagement.data.GroupViewModel;
 import com.example.databasemanagement.data.LeagueViewModel;
 import com.example.databasemanagement.data.UserDisplayViewModel;
+import com.example.databasemanagement.data.UserGroupRepository;
 import com.example.databasemanagement.data.UserGroupViewModel;
 import com.example.databasemanagement.models.League;
 import com.example.databasemanagement.models.PlayerGroup;
@@ -28,6 +30,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SettingsActivity extends AppCompatActivity {
     BottomSheetDialog bottomSheetDialog;
@@ -35,6 +41,8 @@ public class SettingsActivity extends AppCompatActivity {
     LeagueViewModel mLeagueViewModel;
     UserGroupViewModel mUserGroupViewModel;
     public static final String TAG = "SettingActivity";
+    private int userId;
+    private int mGroupId;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,6 +61,7 @@ public class SettingsActivity extends AppCompatActivity {
                 bottomSheetDialog.show();
 
                 final Spinner userSpinner = bottomSheetDialog.findViewById(R.id.user_spinner);
+                final ProgressBar groupProgressbar = bottomSheetDialog.findViewById(R.id.progressBar);
                 assert userSpinner != null;
                 populateUserSpinner(userSpinner);
 
@@ -65,8 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
                     public void onClick(View view) {
                         assert groupNameField != null;
                         String groupName = groupNameField.getText().toString().trim();
-                        String userSpinnerText = userSpinner.getSelectedItem().toString();
-                        int userId;
+                        final String userSpinnerText = userSpinner.getSelectedItem().toString();
 
                         if (userSpinnerText.equals("Select User")) {
                             Toast.makeText(SettingsActivity.this, "Please select a user", Toast.LENGTH_SHORT).show();
@@ -77,20 +85,30 @@ public class SettingsActivity extends AppCompatActivity {
                             Toast.makeText(SettingsActivity.this, "Please enter a value for the Group Name", Toast.LENGTH_LONG).show();
                             return;
                         } else {
-                            try {
-                                Log.d(TAG, "onClick: " + groupProgressBar);
+                            groupProgressbar.setVisibility(View.VISIBLE);
 
-                                userId = mUserGroupViewModel.getUserId(userSpinnerText);
-                                PlayerGroup playerGroup = new PlayerGroup(groupName);
+                            PlayerGroup playerGroup = new PlayerGroup(groupName);
+                            Log.d(TAG, "onClick: " + userId);
 
-                                int groupId = mGroupViewModel.insert(playerGroup);
+                            Handler handler = new Handler();
+                            handler.postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    mUserGroupViewModel.getUserId(userSpinnerText).observe(SettingsActivity.this, new Observer<Integer>() {
+                                        @Override
+                                        public void onChanged(Integer integer) {
+                                            userId = integer;
+                                            Log.d(TAG, "onClick livedata: " + userId);
+                                        }
+                                    });
 
-                                UserGroup userGroup = new UserGroup(userId, groupId);
-                                mUserGroupViewModel.insertUserGroup(userGroup);
+                                    groupProgressbar.setVisibility(View.GONE);
+                                }
+                            }, 2000);
 
-                            } catch (InterruptedException e) {
-                                e.printStackTrace();
-                            }
+                            mGroupViewModel.insert(playerGroup);
+                            UserGroup userGroup = new UserGroup(userId, mGroupId);
+                            mUserGroupViewModel.insertUserGroup(userGroup);
 
                             Toast.makeText(SettingsActivity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
                             bottomSheetDialog.dismiss();
@@ -145,7 +163,6 @@ public class SettingsActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-
                             Toast.makeText(SettingsActivity.this, "Successfully Saved", Toast.LENGTH_LONG).show();
                             bottomSheetDialog.dismiss();
                         }
@@ -153,8 +170,6 @@ public class SettingsActivity extends AppCompatActivity {
                 });
             }
         });
-
-
     }
 
     private void populateGroupSpinner(Spinner spinner) {
@@ -209,6 +224,7 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
     }
+
 }
 
 

@@ -15,7 +15,7 @@ import java.util.List;
 public interface UserGroupDao {
 
     @Query("SELECT * FROM groups WHERE id IN (SELECT group_id FROM user_groups WHERE user_id = :id)")
-    List<PlayerGroup> getUserGroups(int id);
+    LiveData<List<PlayerGroup>> getUserGroups(int id);
 
     @Query("SELECT * FROM user_groups")
     LiveData<List<UserGroup>> getAllUsersAndGroups();
@@ -27,6 +27,6 @@ public interface UserGroupDao {
     void updateUserGroup(UserGroup userGroup);
 
     @Query("SELECT uId FROM users WHERE first_name = :userFirstName")
-    int getUserId(String userFirstName);
+    LiveData<Integer> getUserId(String userFirstName);
 
 }
